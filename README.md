@@ -38,7 +38,5 @@ The jQuery selector used to target the container for the day links. Flexslider w
 The jQuery selector used to target the containers for each day's events.
 ### activeClass='.active'
 The CSS class that will be added to the active day link and active day events container.
-```
 ##Dependencies
-```
 This plugin relies on the <a href="http://flexslider.woothemes.com/">Flexslider responsive slider plugin</a> by WooThemes.

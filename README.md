@@ -1,7 +1,7 @@
 wee-cal
 =======
 
-A jQuery plugin for a tiny event calendar
+A jQuery plugin for a tiny event calendar that includes a list of day links and a series of day events.
 
 ##Markup
 ```

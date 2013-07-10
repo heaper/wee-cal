@@ -1,12 +1,12 @@
 (function ($) {
 
-    $.weeCal = function(element, options) {
+    $.weeCal = function (element, options) {
         var defaults = {
             daysSelector: '.days',
             dayEventsSelector: '.day-events',
             activeClass: "active"
         };
-        
+
         this.settings = {};
 
         var weeCal = $(element);
@@ -36,7 +36,7 @@
 
         };
 
-        var onDayClick = function(e) {
+        var onDayClick = function (e) {
             var link = $(e.currentTarget);
             var listId = link[0].hash.replace("#", "");
 
@@ -48,31 +48,37 @@
             return false;
         };
 
-        var showList = function(listId) {
-            var activeList = weeCal.find(plugin.settings.dayEventsSelector + "." + plugin.settings.activeClass);
-            var listToShow = weeCal.find("#" + listId);
+        var showList = function (listId) {
+            plugin.listIdToShow = listId;
 
-            if (activeList.length) {
-                activeList.fadeOut(250, function () {
-                    activeList.removeClass(plugin.settings.activeClass);
-                    fadeInList(listToShow);
+            if (plugin.isAnimating)
+                return;
+
+            var listToHide = weeCal.find(plugin.settings.dayEventsSelector + "." + plugin.settings.activeClass);
+
+            if (listToHide.length) {
+                plugin.isAnimating = true;
+                listToHide.fadeOut(250, function () {
+                    listToHide.removeClass(plugin.settings.activeClass);
+                    plugin.isAnimating = false;
+                    fadeInList(plugin.listIdToShow);
                 });
-            } else
-                fadeInList(listToShow);
+            } else 
+                fadeInList(plugin.listIdToShow);
         };
 
-        var fadeInList = function(list) {
-            list.fadeIn(250, function() {
-                list.addClass(plugin.settings.activeClass);
-            });
+        var fadeInList = function (listId) {
+            var listToShow = weeCal.find("#" + listId);
+            listToShow.addClass(plugin.settings.activeClass);
+            listToShow.fadeIn(250);
         };
 
         plugin.init();
 
     };
 
-        
-    
+
+
 
     $.fn.weeCal = function (options) {
         return this.each(function () {
